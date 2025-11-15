@@ -9,21 +9,22 @@ Step01: 背景だけを表示するステップ
 
 from pathlib import Path  # ファイルやフォルダの場所を扱う標準ライブラリです
 
-from kivy.app import App          # Kivy アプリの土台になるクラス
-from kivy.uix.widget import Widget  # 画面に置ける「なにもない箱」のようなもの
-from kivy.uix.image import Image    # 画像を表示するための部品
-from kivy.core.window import Window  # ウィンドウの大きさなどを扱うもの
+from kivy.app import App                        # Kivy アプリの土台になるクラス
+from kivy.uix.widget import Widget              # 画面に置ける「なにもない箱」のようなもの
+from kivy.uix.image import Image                # 画像を表示するための部品
+from kivy.core.window import Window             # ウィンドウの大きさなどを扱うもの
+from kivy.uix.floatlayout import FloatLayout    # 自由配置できるレイアウト 
 
 
 # ------------------------------------------------------------
 # 画像ファイルが入っているフォルダへの「道」をつくる
 # ------------------------------------------------------------
 
-# この Python ファイル(step01_bg.py)が置かれているフォルダ (retro-mario/) を基準にします
+# この Python ファイル(step01_bg.py)が置かれているフォルダを基準にします
 BASE_DIR = Path(__file__).resolve().parent
 
-# retro_mario/assets/img フォルダまでのパスを組み立てます
-ASSETS_DIR = BASE_DIR / "retro_mario" / "assets"
+# ./assets/img フォルダまでのパスを組み立てます
+ASSETS_DIR = BASE_DIR / "assets"
 IMG_DIR = ASSETS_DIR / "img"
 
 
@@ -43,7 +44,7 @@ def first_existing(*candidates: Path) -> str:
 
     # ここに来るということは、候補がぜんぶ見つからなかったということ
     raise FileNotFoundError(
-        "背景画像が見つかりません。retro_mario/assets/img に "
+        "背景画像が見つかりません。./assets/img に "
         "bg.png または bg.jpg を置いてください。"
     )
 
@@ -52,7 +53,7 @@ def first_existing(*candidates: Path) -> str:
 # 画面に背景を1枚だけ出すウィジェット
 # ------------------------------------------------------------
 
-class BackgroundOnly(Widget):
+class BackgroundOnly(FloatLayout):
     """
     背景画像を1枚だけ表示する「画面」のクラス。
 
